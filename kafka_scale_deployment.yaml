@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer
+  labels:
+    app: kafka-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      containers:
+      - name: kafka-producer
+        image: micthaworm/producer:test
+        env:
+        - name: TOPIC
+          value: "quickstart-events"
+        - name: KAFKA_SERVER
+          value: "kafka-broker.iterable.svc.cluster.local:9092"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer
+  labels:
+    app: kafka-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: micthaworm/consumer:test
+        env:
+        - name: TOPIC
+          value: "quickstart-events"
+        - name: BROKER_SERVER
+          value: "kafka-broker.iterable.svc.cluster.local:9092"
+
