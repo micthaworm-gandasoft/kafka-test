@@ -1,97 +1,122 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    dataflow.argoproj.io/description: |
+      This is an example of providing a namespace named Kafka configuration.
+
+      The secret must be named `dataflow-kafka-${name}`.
+
+      # Brokers as a comma-separated list
+      brokers: broker.a,broker.b
+      # Kafka version
+      version: "2.0.0"
+
+      # Enable TLS
+      net.tls.caCert: ""
+      net.tls.cert: ""
+      net.tls.key: ""
+
+      # Enable SASL
+      net.sasl.mechanism: PLAIN
+      net.sasl.user: ""
+      net.sasl.password: ""
+
+      [Learn about configuration](../docs/CONFIGURATION.md)
+  name: dataflow-kafka-default
+  namespace: iterable
+stringData:
+  brokers: kafka-broker:9092
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-broker
+  namespace: iterable
+spec:
+  ports:
+  - port: 9092
+  selector:
+    app: kafka-broker
+---
+apiVersion: v1
+kind: Service
 metadata:
   name: zookeeper
-  labels:
-    app: zookeeper
+  namespace: iterable
 spec:
-  replicas: 1
+  ports:
+  - name: client
+    port: 2181
+  - name: follower
+    port: 2888
+  - name: leader
+    port: 3888
+  selector:
+    app: zookeeper
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-broker
+  namespace: iterable
+spec:
+  selector:
+    matchLabels:
+      app: kafka-broker
+  serviceName: kafka-broker
+  template:
+    metadata:
+      labels:
+        app: kafka-broker
+    spec:
+      containers:
+      - env:
+        - name: KAFKA_ADVERTISED_PORT
+          value: "9092"
+        - name: KAFKA_ADVERTISED_HOST_NAME
+          value: kafka-broker
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zookeeper:2181
+        - name: KAFKA_BROKER_ID
+          value: "0"
+        - name: KAFKA_CREATE_TOPICS
+          value: "api.campaign.metrics:1:1,api.catalog.items:1:1,api.list.users:1:1,api.template.emails:1:1"
+        image: wurstmeister/kafka
+        imagePullPolicy: IfNotPresent
+        name: main
+        ports:
+        - containerPort: 9092
+        readinessProbe:
+          tcpSocket:
+            port: 9092
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zookeeper
+  namespace: iterable
+spec:
   selector:
     matchLabels:
       app: zookeeper
+  serviceName: zookeeper
   template:
     metadata:
       labels:
         app: zookeeper
     spec:
       containers:
-      - name: zookeeper
-        image: bitnami/zookeeper:latest
+      - env:
+        - name: ZOOKEEPER_ID
+          value: "1"
+        - name: ZOOKEEPER_SERVER_1
+          value: zoo
+        image: wurstmeister/zookeeper
+        imagePullPolicy: IfNotPresent
+        name: main
         ports:
         - containerPort: 2181
-        env:
-        - name: ALLOW_ANONYMOUS_LOGIN
-          value: "yes"
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: kafka-sts
-spec:
-  selector:
-    matchLabels:
-      app: kafka
-  serviceName: kafka
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: kafka
-    spec:
-      containers:
-      - name: kafka
-        image: bitnami/kafka:latest
-        env:
-        - name: KAFKA_BROKER_ID
-          value: "1"
-        - name: KAFKA_CFG_LISTENERS
-          value: "PLAINTEXT://:9092"
-        - name: KAFKA_CFG_ADVERTISED_LISTENERS
-          value: "PLAINTEXT://127.0.0.1:9092"
-        - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-          value: "zookeeper.iterable.svc.cluster.local:2181"
-        - name: ALLOW_PLAINTEXT_LISTENER
-          value: "yes"
-        ports:
-        - containerPort: 9092
-          name: kafka-endpoint
-  #       volumeMounts:
-  #       - name: opt
-  #         mountPath: /opt/bitnami
-  # volumeClaimTemplates:
-  # - metadata:
-  #     name: opt
-  #   spec:
-  #     accessModes: [ "ReadWriteOnce" ]
-  #     resources:
-  #       requests:
-  #         storage: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: zookeeper-svc
-spec:
-  selector:
-    app: zookeeper
-  ports:
-    - protocol: TCP
-      port: 2181
-      targetPort: 2181
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kafka-svc
-spec:
-  type: NodePort
-  selector:
-    app: kafka
-  ports:
-    - port: 9092
-      targetPort: 9092
-      nodePort: 30092
-
-
-
-       
+        readinessProbe:
+          tcpSocket:
+            port: 2181
