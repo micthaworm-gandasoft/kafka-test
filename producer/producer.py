@@ -11,7 +11,7 @@ def jsonserializer(message):
     return json.dumps(message).encode('utf-8')
 
   
-producer = KafkaProducer(bootstrap_servers="kafka-sts.iterable.svc.cluster.local:9092",value_serializer=jsonserializer)
+producer = KafkaProducer(bootstrap_servers=os.environ['KAFKA_SERVER'],value_serializer=jsonserializer)
 
 
 if __name__=='__main__':
