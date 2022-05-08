@@ -21,7 +21,7 @@ spec:
         - name: TOPIC
           value: "quickstart-events"
         - name: KAFKA_SERVER
-          value: "kafka-broker.iterable.svc.cluster.local:9092"
+          value: "kafka-sts.iterable.svc.cluster.local:9092"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,5 +46,5 @@ spec:
         - name: TOPIC
           value: "quickstart-events"
         - name: BROKER_SERVER
-          value: "kafka-broker.iterable.svc.cluster.local:9092"
+          value: "kafka-sts.iterable.svc.cluster.local:9092"
 
