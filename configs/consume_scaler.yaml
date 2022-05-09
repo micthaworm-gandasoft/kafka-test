@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kafka-scaledobject
+  namespace: kafka-keda
+  labels:
+    deploymentName: kafka-consumer
+spec:
+  scaleTargetRef:
+    name: kafka-consumer
+  pollingInterval: 30
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: kafka-broker.iterable.svc.cluster.local:9092
+        consumerGroup: my-group
+        topic: my-topic
+        lagThreshold: "50"
+        offsetResetPolicy: latest

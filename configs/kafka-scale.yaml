@@ -5,7 +5,7 @@ metadata:
   labels:
     app: kafka-producer
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
       app: kafka-producer
@@ -22,6 +22,8 @@ spec:
           value: "quickstart-events"
         - name: KAFKA_SERVER
           value: "kafka-broker.iterable.svc.cluster.local:9092"
+        - name: PAYLOAD_SIZE
+          value: 100
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,4 +49,5 @@ spec:
           value: "quickstart-events"
         - name: BROKER_SERVER
           value: "kafka-broker.iterable.svc.cluster.local:9092"
+
 

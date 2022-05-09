@@ -1,6 +1,5 @@
 from ensurepip import bootstrap
 from kafka import KafkaAdminClient, KafkaConsumer
-from kafka.errors import KafkaError
 import json
 import time
 import os
