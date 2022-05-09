@@ -8,6 +8,9 @@ metadata:
 spec:
   scaleTargetRef:
     name: kafka-consumer
+  pollingInterval: 15
+  cooldownPeriod: 100
+  maxReplicaCount: 10
   pollingInterval: 30
   triggers:
     - type: kafka
