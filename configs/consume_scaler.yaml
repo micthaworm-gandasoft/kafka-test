@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: kafka-scaledobject
-  namespace: kafka-keda
+  namespace: iterable
   labels:
     deploymentName: kafka-consumer
 spec:
