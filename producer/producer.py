@@ -16,9 +16,7 @@ producer = KafkaProducer(bootstrap_servers=os.environ['KAFKA_SERVER'],value_seri
 
 if __name__=='__main__':
     payload_size=os.environ['PAYLOAD_SIZE']
-    for message in range(0,payload_size):
+    for message in range(0,int(payload_size)):
         data =requests.get('https://reqres.in/api/users?page=2')
-        logging.info(data.text)
         producer.send(os.environ['TOPIC'],data.text)
-        time_to_sleep = random.randint(1,3)
-        time.sleep(time_to_sleep)
+        logging.info(data.status_code)
