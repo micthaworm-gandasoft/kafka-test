@@ -12,7 +12,7 @@ if __name__=='__main__':
         auto_offset_reset="earliest",
         group_id='test-group',
     )
-    time.sleep(2)
+    
     for messages in consumer:
         logging.info(messages.value)
         print(json.loads(messages.value))
