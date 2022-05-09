@@ -1,19 +1,20 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: consumer-scaler
+  name: kafka-scaledobject
   namespace: iterable
+  labels:
+    deploymentName: kafka-consumer
 spec:
   scaleTargetRef:
     name: kafka-consumer
-  pollingInterval: 15
-  cooldownPeriod: 100
-  maxReplicaCount: 10
+  pollingInterval: 30
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: kafka-broker.iterable.svc.cluster.local:9092
+        bootstrapServers: kafka-broker.iterable.svc:9092
         consumerGroup: test-group
         topic: "quickstart-events"
-        lagThreshold: "5"
+        # Optional
+        lagThreshold: "10"
         offsetResetPolicy: latest
