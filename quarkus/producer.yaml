@@ -4,7 +4,7 @@ metadata:
   labels:
     app: kafka-producer-job-notls-noacks
   name: kafka-producer-job-notls-noacks
-  namespace: kafka
+  namespace: iterable
 spec:
   parallelism: 5
   completions: 5

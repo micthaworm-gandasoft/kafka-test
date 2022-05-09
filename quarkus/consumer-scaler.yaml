@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: kafka-scaledobject
-  namespace: default
+  namespace: iterable
   labels:
     deploymentName: kafka-quarkus-consumer
 spec:
