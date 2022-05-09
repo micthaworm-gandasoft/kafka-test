@@ -30,7 +30,7 @@ spec:
     - type: kafka
       metadata:
         bootstrapServers: kafka-broker.iterable.svc.cluster.local:9092
-        consumerGroup: my-group
+        consumerGroup: test-group
         topic: "quickstart-events"
         lagThreshold: '5'
         offsetResetPolicy: latest

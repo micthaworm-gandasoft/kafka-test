@@ -10,7 +10,8 @@ if __name__=='__main__':
     consumer =KafkaConsumer(
         os.environ['TOPIC'],
         bootstrap_servers=os.environ['BROKER_SERVER'],
-        auto_offset_reset="earliest"
+        auto_offset_reset="earliest",
+        group_id='test-group'
     )
     for messages in consumer:
         time.sleep(10)
