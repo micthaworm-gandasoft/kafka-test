@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: test-producer
+  name: producer
   namespace: iterable
 spec:
   parallelism: 5
@@ -10,7 +10,7 @@ spec:
   template:
     spec:
       containers:
-      - name: test-producer
+      - name: producer
         image: wurstmeister/kafka
         command: [ "bin/kafka-producer-perf-test.sh" ]
         args: [ "--topic", "my-topic", "--throughput", "10000000", "--num-records", "1000000", "--producer-props", "bootstrap.servers=kafka-broker.iterable.svc.cluster.local:9092", "--record-size", "1000" ]
