@@ -8,7 +8,7 @@ spec:
     kind: Deployment       # Optional. Default: Deployment
     name: kafka-consumer        # Mandatory. Must be in the same namespace as the ScaledObject
            # Optional. Default: .spec.template.spec.containers[0]
-    pollingInterval: 15
+    pollingInterval: 30
     cooldownPeriod: 100
     maxReplicaCount: 10
   triggers:
