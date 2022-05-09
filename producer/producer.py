@@ -15,9 +15,9 @@ producer = KafkaProducer(bootstrap_servers=os.environ['KAFKA_SERVER'],value_seri
 
 
 if __name__=='__main__':
-    while True:
+    i=0
+    while i<10000 :
         data =requests.get('https://reqres.in/api/users?page=2')
-        logging.info(data.text)
+        logging.info(json.dumps(data.text))
         producer.send(os.environ['TOPIC'],data.text)
-        time_to_sleep = random.randint(1,11)
-        time.sleep(time_to_sleep)
+        i+=1

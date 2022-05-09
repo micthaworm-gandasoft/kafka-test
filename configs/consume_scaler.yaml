@@ -1,12 +1,12 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: {scaled-object-name}
+  name: kafka-consumer-scaler
 spec:
   scaleTargetRef:
     apiVersion: apps/v1  # Optional. Default: apps/v1
     kind: Deployment       # Optional. Default: Deployment
-    name: kafka-producer         # Mandatory. Must be in the same namespace as the ScaledObject
+    name: kafka-consumer        # Mandatory. Must be in the same namespace as the ScaledObject
            # Optional. Default: .spec.template.spec.containers[0]
   pollingInterval:  30                               # Optional. Default: 30 seconds
   cooldownPeriod:   300                              # Optional. Default: 300 seconds
@@ -29,9 +29,9 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: kafka.svc:9092
+        bootstrapServers: kafka-broker.iterable.svc.cluster.local:9092
         consumerGroup: my-group
-        topic: test-topic
+        topic: "quickstart-events"
         lagThreshold: '5'
         offsetResetPolicy: latest
         allowIdleConsumers: "false"
