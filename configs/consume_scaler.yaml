@@ -1,7 +1,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: kafka-scaledobject
+  name: kafka-consumer-scaler
   namespace: iterable
   labels:
     deploymentName: kafka-consumer
@@ -11,7 +11,6 @@ spec:
   pollingInterval: 15
   cooldownPeriod: 100
   maxReplicaCount: 10
-  pollingInterval: 30
   triggers:
     - type: kafka
       metadata:

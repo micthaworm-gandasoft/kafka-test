@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
       - name: kafka-producer
-        image: micthaworm/producer:test
+        image: micthaworm/producer:latest
         env:
         - name: TOPIC
           value: "quickstart-events"
         - name: KAFKA_SERVER
           value: "kafka-broker.iterable.svc.cluster.local:9092"
         - name: PAYLOAD_SIZE
-          value: "100"
+          value: "10000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: kafka-consumer
-        image: micthaworm/consumer:test
+        image: micthaworm/consumer:latest
         env:
         - name: TOPIC
           value: "quickstart-events"
