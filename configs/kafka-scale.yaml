@@ -23,7 +23,7 @@ spec:
         - name: KAFKA_SERVER
           value: "kafka-broker.iterable.svc.cluster.local:9092"
         - name: PAYLOAD_SIZE
-          value: 100
+          value: "100"
 ---
 apiVersion: apps/v1
 kind: Deployment
