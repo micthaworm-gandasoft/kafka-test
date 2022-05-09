@@ -15,7 +15,8 @@ producer = KafkaProducer(bootstrap_servers=os.environ['KAFKA_SERVER'],value_seri
 
 
 if __name__=='__main__':
-    while True:
+    payload_size=os.environ['PAYLOAD_SIZE']
+    for message in range(0,payload_size):
         data =requests.get('https://reqres.in/api/users?page=2')
         logging.info(data.text)
         producer.send(os.environ['TOPIC'],data.text)
