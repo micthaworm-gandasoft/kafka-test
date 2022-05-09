@@ -21,20 +21,20 @@ spec:
         image: quay.io/strimzi/kafka:0.24.0-kafka-2.7.1
         command: [ "bin/kafka-producer-perf-test.sh" ]
         args: [ "--topic", "my-topic", "--throughput", "10000000", "--num-records", "1000000", "--producer-props", "bootstrap.servers=kafka-broker.iterable.svc.cluster.local:9092", "--record-size", "1000" ]
-        volumeMounts:
-        - name: strimzi-ca
-          readOnly: true
-          mountPath: "/etc/strimzi"
-        env:
-        - name: CA_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: my-cluster-cluster-ca-cert
-              key: ca.password
-      volumes:
-      - name: strimzi-ca
-        secret:
-          secretName: my-cluster-cluster-ca-cert
+        # volumeMounts:
+        # - name: strimzi-ca
+        #   readOnly: true
+        #   mountPath: "/etc/strimzi"
+      #   env:
+      #   - name: CA_PASSWORD
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: my-cluster-cluster-ca-cert
+      #         key: ca.password
+      # volumes:
+      # - name: strimzi-ca
+      #   secret:
+      #     secretName: my-cluster-cluster-ca-cert
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
