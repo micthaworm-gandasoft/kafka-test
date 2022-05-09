@@ -1,7 +1,7 @@
 apiVersion: keda.k8s.io/v1alpha1
 kind: ScaledObject
 metadata:
-  name: kafka-scaledobject
+  name: consumer-scaler
   namespace: default
 spec:
   scaleTargetRef:
