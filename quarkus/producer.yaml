@@ -1,24 +1,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  labels:
-    app: kafka-producer
-  name: kafka-producer
+  name: test-producer
   namespace: iterable
 spec:
   parallelism: 5
   completions: 5
   backoffLimit: 1
   template:
-    metadata:
-      name: kafka-perf-producer
-      labels:
-        app: kafka-perf-producer
     spec:
-      restartPolicy: Never
       containers:
-      - name: kafka-perf-producer
-        image: quay.io/strimzi/kafka:latest-kafka-3.0.1
-        command: [ "bin/kafka-producer-perf-test.sh" ]
+      - name: test-producer
+        image: wurstmeister/kafka
         args: [ "--topic", "my-topic", "--throughput", "10000000", "--num-records", "1000000", "--producer-props", "bootstrap.servers=kafka-broker.iterable.svc.cluster.local:9092", "--record-size", "1000" ]
-
+      restartPolicy: Never
+  
