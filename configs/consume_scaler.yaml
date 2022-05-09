@@ -16,5 +16,5 @@ spec:
         consumerGroup: test-group
         topic: quickstart-events
         # Optional
-        lagThreshold: "10"
+        lagThreshold: "50"
         offsetResetPolicy: latest
