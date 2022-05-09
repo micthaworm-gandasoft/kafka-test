@@ -2,8 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
-    app: kafka-producer-job-notls-noacks
-  name: kafka-producer-job-notls-noacks
+    app: kafka-producer
+  name: kafka-producer
   namespace: iterable
 spec:
   parallelism: 5
