@@ -14,7 +14,7 @@ spec:
       metadata:
         bootstrapServers: kafka-broker.iterable.svc:9092
         consumerGroup: test-group
-        topic: "quickstart-events"
+        topic: quickstart-events
         # Optional
         lagThreshold: "10"
         offsetResetPolicy: latest
