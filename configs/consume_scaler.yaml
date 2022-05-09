@@ -15,5 +15,5 @@ spec:
         bootstrapServers: kafka-broker.iterable.svc.cluster.local:9092
         consumerGroup: test-group
         topic: "quickstart-events"
-        lagThreshold: "50"
+        lagThreshold: "5"
         offsetResetPolicy: latest
