@@ -11,9 +11,8 @@ if __name__=='__main__':
         os.environ['TOPIC'],
         bootstrap_servers=os.environ['BROKER_SERVER'],
         auto_offset_reset="earliest",
-        group_id='test-group'
+        group_id='test-group',
     )
     for messages in consumer:
-        time.sleep(10)
         logging.info(messages.value)
         print(json.loads(messages.value))
