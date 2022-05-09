@@ -1,20 +1,20 @@
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: kafka-consumer
-  namespace: iterable
-  labels:
-    deploymentName: kafka-consumer
-spec:
-  scaleTargetRef:
-    name: kafka-consumer
-  pollingInterval: 30
-  triggers:
-    - type: kafka
-      metadata:
-        bootstrapServers: kafka-broker.iterable.svc:9092
-        consumerGroup: test-group
-        topic: quickstart-events
-        # Optional
-        lagThreshold: "50"
-        offsetResetPolicy: latest
+# apiVersion: keda.sh/v1alpha1
+# kind: ScaledObject
+# metadata:
+#   name: kafka-consumer
+#   namespace: iterable
+#   labels:
+#     deploymentName: kafka-consumer
+# spec:
+#   scaleTargetRef:
+#     name: kafka-consumer
+#   pollingInterval: 30
+#   triggers:
+#     - type: kafka
+#       metadata:
+#         bootstrapServers: kafka-broker.iterable.svc:9092
+#         consumerGroup: test-group
+#         topic: quickstart-events
+#         # Optional
+#         lagThreshold: "50"
+#         offsetResetPolicy: latest
