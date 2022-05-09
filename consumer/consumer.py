@@ -14,5 +14,4 @@ if __name__=='__main__':
     )
     
     for messages in consumer:
-        logging.info(messages.value)
-        print(json.loads(messages.value))
+        print(messages.value)
