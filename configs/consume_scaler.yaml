@@ -4,7 +4,7 @@ metadata:
   name: kafka-consumer-scaledobject
 spec:
   minReplicaCount: 0
-  maxReplicaCount: 5
+  maxReplicaCount: 2
   cooldownPeriod: 5
   pollingInterval: 10
   fallback:
