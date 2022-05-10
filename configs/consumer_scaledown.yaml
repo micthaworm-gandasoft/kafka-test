@@ -1,7 +1,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: kafka-consumer-scaledobject
+  name: kafka-amqstreams-consumer-scaledobject
 spec:
   minReplicaCount: 0
   maxReplicaCount: 5
@@ -9,14 +9,14 @@ spec:
   pollingInterval: 10
   fallback:
     failureThreshold: 3
-    replicas: 2
+    replicas: 0
   scaleTargetRef:
-    name: kafka-consumer
+    name: kafka-amqstreams-consumer
   triggers:
   - type: kafka
     metadata:
-      topic: quickstart-events
+      topic: my-topic
       bootstrapServers: kafka-broker.iterable.svc:9092
-      consumerGroup: test-group
-      lagThreshold: '5'
+      consumerGroup: my-group
+      lagThreshold: '2'
       offsetResetPolicy: 'latest'
