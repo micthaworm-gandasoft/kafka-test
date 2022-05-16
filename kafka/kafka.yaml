@@ -21,8 +21,6 @@ metadata:
       net.sasl.mechanism: PLAIN
       net.sasl.user: ""
       net.sasl.password: ""
-
-      [Learn about configuration](../docs/CONFIGURATION.md)
   name: dataflow-kafka-default
   namespace: iterable
 stringData:

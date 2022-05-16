@@ -46,7 +46,7 @@ spec:
         image: micthaworm/consumer:latest
         env:
         - name: TOPIC
-          value: "quickstart-events"
+          value: "test-topic"
         - name: BROKER_SERVER
           value: "kafka-broker.iterable.svc.cluster.local:9092"
 
