@@ -32,7 +32,7 @@ metadata:
   labels:
     app: kafka-consumer
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: kafka-consumer
