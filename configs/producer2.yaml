@@ -20,4 +20,4 @@ spec:
       - name: kafka-perf-producer
         image: quay.io/strimzi/kafka:0.24.0-kafka-2.7.1
         command: [ "bin/kafka-producer-perf-test.sh" ]
-        args: [ "--topic", "test-topic", "--throughput", "10000", "--num-records", "10000000", "--producer-props", "bootstrap.servers=kafka-broker.iterable.svc:9092", "--record-size", "1000" ]
+        args: [ "--topic", "test-topic", "--throughput", "10000", "--num-records", "10000", "--producer-props", "bootstrap.servers=kafka-broker.iterable.svc:9092", "--record-size", "1000" ]

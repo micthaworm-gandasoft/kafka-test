@@ -79,7 +79,7 @@ spec:
         - name: KAFKA_BROKER_ID
           value: "0"
         - name: KAFKA_CREATE_TOPICS
-          value: "api.campaign.metrics:6:1,api.catalog.items:6:1,api.list.users:6:1,api.template.emails:6:1,quickstart-events:6:1"
+          value: "api.campaign.metrics:6:1,api.catalog.items:6:1,api.list.users:6:1,api.template.emails:6:1,test-topic:6:1"
         image: wurstmeister/kafka
         imagePullPolicy: IfNotPresent
         name: main
